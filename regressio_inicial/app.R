@@ -26,12 +26,9 @@ ui <- fluidPage(
             numericInput("sy",
                          "sy:",
                          value=1),
-            sliderInput("r",
+            numericInput("r",
                         "Correlació:",
-                        value=0,
-                        min=-1,
-                        max=1,
-                        step=.01)
+                        value=0)
         ),
         
         # Show a plot of the generated distribution
