@@ -28,7 +28,10 @@ ui <- fluidPage(
       
       # Show result
       mainPanel(
-         textOutput("suma")
+         span("Resultat",textOutput("suma"), 
+              style="color:red; font-size:25px"), #style
+         verbatimTextOutput("suma2"),
+         plotOutput(("barra"))
       )
    )
 )
@@ -36,10 +39,20 @@ ui <- fluidPage(
 # Define server logic 
 server <- function(input, output) {
    
-   output$suma <- renderText({
-      # generar suma
-      input$sumand1+input$sumand2
-   })
+  output$suma <- renderText({
+    # generar suma
+    input$sumand1+input$sumand2
+  })
+  
+  output$suma2 <- renderPrint({
+    # generar suma
+    cat(paste(input$sumand1,"+",input$sumand2, "=", input$sumand1+input$sumand2))
+  })
+  
+  output$barra <- renderPlot(
+     barplot(matrix(c(input$sumand1, input$sumand2)))
+   )
+   
 }
 
 # Run the application 
