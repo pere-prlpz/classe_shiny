@@ -31,6 +31,8 @@ ui <- fluidPage(
          span("Resultat",textOutput("suma"), 
               style="color:red; font-size:25px"), #style
          verbatimTextOutput("suma2"),
+         p("La suma dóna", textOutput("suma3", inline=TRUE), 
+           style="color:blue"),
          plotOutput(("barra"))
       )
    )
@@ -47,6 +49,11 @@ server <- function(input, output) {
   output$suma2 <- renderPrint({
     # generar suma
     cat(paste(input$sumand1,"+",input$sumand2, "=", input$sumand1+input$sumand2))
+  })
+  
+  output$suma3 <- renderText({
+    # generar suma
+    input$sumand1+input$sumand2
   })
   
   output$barra <- renderPlot(

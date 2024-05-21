@@ -8,9 +8,8 @@
 #
 
 library(shiny)
-library(ggplot2)
 
-# Define UI for application
+# Define UI for application 
 ui <- fluidPage(
    
    # Application title
@@ -37,24 +36,42 @@ ui <- fluidPage(
       
       # Show a plot 
       mainPanel(
-         plotOutput("grafic")
+         plotOutput("grafic"),
+         verbatimTextOutput("sumari")
       )
    )
 )
 
-# Define server logic
+# Functions and non reactive values used in server
+
+genera_mostra <- function(sx, sy, r, n) {
+  sxy <- sx*sy*r
+  b <- sxy/(sx)^2
+  x <- rnorm(n,0,sx)
+  serr <- sqrt(1-r^2)*sy
+  errors <- rnorm(n,0,serr)
+  y <- x*b+errors
+  return(data.frame(x,y))
+}
+
+# Define server logic  
 server <- function(input, output) {
+
+   mostra <- reactive({
+     genera_mostra(input$sx, input$sy, input$r, input$n)
+   })
    
+   model <- reactive({
+     lm(y~x, data=mostra())
+   })
+     
    output$grafic <- renderPlot({
       # generar mostra
-     sxy <- input$sx*input$sy*input$r
-     b <- sxy/(input$sx)^2
-     x <- rnorm(input$n,0,input$sx)
-     serr <- sqrt(1-input$r^2)*input$sy
-     errors <- rnorm(input$n,0,serr)
-     y <- x*b+errors
-     mostra <- data.frame(x,y)
-     plot(x,y)
+     plot(mostra()$x,mostra()$y)
+   })
+   
+   output$sumari <- renderPrint({
+      summary(model())
    })
 }
 

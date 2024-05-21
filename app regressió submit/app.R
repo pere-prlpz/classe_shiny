@@ -49,7 +49,7 @@ ui <- fluidPage(
                    verbatimTextOutput("sumari2")),
           tabPanel("Ajuda",
                    h1("Informació"),
-                   p("Aquesta aplicació ajuda a visualitzar la regressió lineheal
+                   p("Aquesta aplicació ajuda a visualitzar la regressió lineal
                      amb un sol predictor."),
                    p("Feu servir els controls de l'esquerra per canvir la mostra."),
                    h2("Detalls"),

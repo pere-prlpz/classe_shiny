@@ -8,9 +8,8 @@
 #
 
 library(shiny)
-library(ggplot2)
 
-# Define UI for application that draws a histogram
+# Define UI for application 
 ui <- fluidPage(
    
    # Application title
@@ -35,7 +34,7 @@ ui <- fluidPage(
                     step=.01)
       ),
       
-      # Show a plot of the generated distribution
+      # Show a plot 
       mainPanel(
          plotOutput("grafic"),
          verbatimTextOutput("sumari")
@@ -43,7 +42,7 @@ ui <- fluidPage(
    )
 )
 
-# Define server logic required to draw a histogram
+# Define server logic required 
 server <- function(input, output) {
 
    mostra <- reactive({
